@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navigation from "./components/Navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,13 +37,7 @@ export default function RootLayout({
         Aanavik
       </a>
 
-      <nav className="flex gap-8 text-sm uppercase tracking-[0.15em] text-gray-600">
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/writing">Writing</a>
-        <a href="/research">Research</a>
-        <a href="/garden">Garden</a>
-      </nav>
+      <Navigation />
     </div>
   </header>
 
