@@ -32,9 +32,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
   <header className="border-b border-gray-200">
-    <div className="mx-auto flex max-w-6xl items-center justify-between px-8 py-6">
+    <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-8 py-6 md:items-center">
       <a href="/" className="text-2xl font-serif">
-        Aanavik
+      Aanavik
       </a>
 
       <Navigation />
