@@ -21,6 +21,13 @@ export const gardenEntry = defineType({
     }),
 
     defineField({
+      name: 'occurrence',
+      title: 'Garden occurrence',
+      type: 'reference',
+      to: [{type: 'gardenOccurrence'}],
+    }),
+
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',

@@ -38,59 +38,63 @@ export default async function GardenPage() {
           </p>
         </div>
 
-        {/* Garden Journal */}
-        <section className="mt-24 border-t border-gray-200 pt-12">
-          <p className="text-sm uppercase tracking-[0.2em] text-gray-500">
-            From the garden
-          </p>
+                        {/* Garden Almanac */}
+        <section className="mt-20 grid gap-6 md:grid-cols-3">
+          <a
+            href="/garden/almanac"
+            className="rounded-2xl border border-gray-200 p-8 transition hover:border-gray-400"
+          >
+            <p className="text-sm uppercase tracking-[0.2em] text-gray-500">
+              Garden Almanac
+            </p>
 
-          {gardenEntries.map((entry: any) => (
-            <article key={entry._id} className="mt-10 max-w-3xl">
+            <h2 className="mt-4 text-3xl font-serif">
+              What can I start now?
+            </h2>
 
-              <p className="text-sm text-gray-500">
-                {new Date(entry.observedAt).toLocaleString('en-IN', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                  hour: 'numeric',
-                  minute: '2-digit',
-                  hour12: true,
-                  timeZone: 'Asia/Kolkata',
-                })}
-              </p>
+            <p className="mt-4 text-lg leading-7 text-gray-600">
+              A garden calendar that looks ahead, so you don't have to hold
+              the whole garden in your head.
+            </p>
+          </a>
 
-              <h2 className="mt-3 text-3xl font-serif">
-                {entry.title}
-              </h2>
+          <a
+  href="/garden/journal"
+  className="rounded-2xl border border-gray-200 p-8 transition hover:border-gray-400"
+>
+            <p className="text-sm uppercase tracking-[0.2em] text-gray-500">
+              Garden Journal
+            </p>
 
-              <div className="mt-6 text-lg leading-8 text-gray-700 [&>p+p]:mt-4">
-               <PortableText
-  value={entry.observation}
-  components={{
-    marks: {
-      link: ({ value, children }) => (
-        <a
-          href={value?.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline underline-offset-4 decoration-gray-400 hover:decoration-gray-700"
-        >
-          {children}
-        </a>
-        
-      ),
-    },
-      }}
-    />
-  </div>
+            <h2 className="mt-4 text-3xl font-serif">
+              The garden, day to day.
+            </h2>
 
-  {entry.images?.length > 0 && (
-  <GardenGallery images={entry.images} title={entry.title} />
-)}
+            <p className="mt-4 text-lg leading-7 text-gray-600">
+              Observations, experiments and lessons from a living garden.
+            </p>
+          </a>
 
-            </article>
-          ))}
+         <a
+  href="/garden/babies"
+  className="rounded-2xl border border-gray-200 p-8 transition hover:border-gray-400"
+>
+            <p className="text-sm uppercase tracking-[0.2em] text-gray-500">
+              The garden
+            </p>
+
+            <h2 className="mt-4 text-3xl font-serif">
+              Meet the babies
+            </h2>
+
+            <p className="mt-4 text-lg leading-7 text-gray-600">
+              The plants growing, flowering, fruiting and generally getting
+              into trouble in the garden.
+            </p>
+          </a>
         </section>
+
+        
 
       </div>
     </main>

@@ -31,12 +31,11 @@ export default function Navigation() {
 
   {menuOpen && (
     <nav className="mt-3 flex w-56 flex-col gap-5 rounded-xl bg-white p-6 shadow-xl">
-      <Link href="/">Home</Link>
-      <Link href="/why-aanavik">Why Aanavik</Link>
-      <Link href="/about">About</Link>
-      <Link href="/writing">Writing</Link>
-      <Link href="/research">Research</Link>
-      <Link href="/garden">Garden</Link>
+ <Link href="/">Home</Link>
+<Link href="/why-aanavik">Why Aanavik</Link>
+<Link href="/writing">Writing</Link>
+<Link href="/research">Research</Link>
+<Link href="/garden">Garden</Link>
     </nav>
   )}
 </div>
