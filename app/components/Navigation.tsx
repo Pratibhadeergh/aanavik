@@ -9,14 +9,13 @@ export default function Navigation() {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex gap-8 text-sm uppercase tracking-[0.15em] text-gray-600">
-        <Link href="/why-aanavik">Why Aanavik</Link>
-        <Link href="/">Home</Link>
-        <Link href="/about">About</Link>
-        <Link href="/writing">Writing</Link>
-        <Link href="/research">Research</Link>
-        <Link href="/garden">Garden</Link>
-      </nav>
+<nav className="hidden md:flex gap-8 text-sm uppercase tracking-[0.15em] text-gray-600">
+  <Link href="/">Home</Link>
+  <Link href="/why-aanavik">Why Aanavik</Link>
+  <Link href="/writing">Writing</Link>
+  <Link href="/research">Research</Link>
+  <Link href="/garden">Garden</Link>
+</nav>
 
       {/* Mobile Button */}
       {/* Mobile Navigation */}
