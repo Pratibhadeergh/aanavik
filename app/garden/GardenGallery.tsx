@@ -59,6 +59,21 @@ const scrollPrevious = () => {
       behavior: 'smooth',
     })
   }
+  const selectedIndex = selectedImage
+  ? images.indexOf(selectedImage)
+  : -1
+
+const showPreviousImage = () => {
+  if (selectedIndex > 0) {
+    setSelectedImage(images[selectedIndex - 1])
+  }
+}
+
+const showNextImage = () => {
+  if (selectedIndex < images.length - 1) {
+    setSelectedImage(images[selectedIndex + 1])
+  }
+}
 
   if (!images?.length) return null
 
@@ -125,27 +140,68 @@ const scrollPrevious = () => {
       </div>
 
       {selectedImage && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6"
-          onClick={() => setSelectedImage(null)}
-        >
-          <button
-            type="button"
-            onClick={() => setSelectedImage(null)}
-            className="absolute right-6 top-6 text-3xl text-white"
-            aria-label="Close photograph"
-          >
-            ×
-          </button>
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6"
+    onClick={(event) => {
+  if (event.target === event.currentTarget) {
+    setSelectedImage(null)
+  }
+}}
+  >
+    <div
+      className="relative flex max-h-full max-w-full items-center justify-center"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <button
+        type="button"
+        onClick={() => setSelectedImage(null)}
+        className="absolute right-6 top-4 z-10 text-3xl text-white"
+        aria-label="Close photograph"
+      >
+        ×
+      </button>
 
-          <img
-            src={urlFor(selectedImage).width(2000).url()}
-            alt={selectedImage.caption || title}
-            className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain"
-            onClick={(event) => event.stopPropagation()}
-          />
-        </div>
+      {selectedIndex > 0 && (
+        <button
+          type="button"
+          onClick={(event) => {
+  event.stopPropagation()
+  showPreviousImage()
+}}
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-3xl text-white"
+          aria-label="Previous photograph"
+        >
+          ←
+        </button>
       )}
+
+      {selectedIndex < images.length - 1 && (
+        <button
+          type="button"
+          onClick={(event) => {
+  event.stopPropagation()
+  showNextImage()
+}}
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-3xl text-white"
+          aria-label="Next photograph"
+        >
+          →
+        </button>
+      )}
+
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded bg-black/40 px-2 py-1 text-sm text-white">
+        {selectedIndex + 1} / {images.length}
+      </div>
+
+      <img
+        src={urlFor(selectedImage).width(2000).url()}
+        alt={selectedImage.caption || title}
+        className="max-h-[80vh] max-w-[88vw] rounded-xl object-contain"
+      />
+    </div>
+  </div>
+)}
+
     </>
   )
 }

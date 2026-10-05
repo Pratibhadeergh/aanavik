@@ -32,14 +32,31 @@ export default async function GardenPage() {
           </h1>
 
           <p className="mt-10 max-w-2xl text-2xl text-gray-600">
-            Soil, microbes, compost, seeds, insects and seasons reveal the
-            same principles that appear throughout biology: diversity,
-            resilience and relationships.
-          </p>
-        </div>
+  Soil, microbes, compost, seeds, insects and seasons reveal the
+  same principles that appear throughout biology: diversity,
+  resilience and relationships.
+</p>
+</div>
 
-                        {/* Garden Almanac */}
-        <section className="mt-20 grid gap-6 md:grid-cols-3">
+{/* Garden Navigation */}
+<nav className="mt-10 border-y border-gray-200 py-4">
+  <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm uppercase tracking-[0.15em] text-gray-500">
+    <a href="/garden/almanac" className="transition hover:text-green-700">
+      Garden Almanac
+    </a>
+
+    <a href="/garden/journal" className="transition hover:text-green-700">
+      Garden Journal
+    </a>
+
+    <a href="/garden/babies" className="transition hover:text-green-700">
+      The Garden
+    </a>
+  </div>
+</nav>
+
+{/* Garden Almanac */}
+<section className="mt-20 grid gap-6 md:grid-cols-3">
           <a
             href="/garden/almanac"
             className="rounded-2xl border border-gray-200 p-8 transition hover:border-gray-400"

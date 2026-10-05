@@ -1,6 +1,7 @@
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import Link from 'next/link'
+import GardenNav from '../GardenNav'
 
 const GARDEN_QUERY = `*[_type == "gardenEntry" && defined(plant)] | order(observedAt desc) {
   _id,
@@ -46,8 +47,8 @@ export default async function GardenBabiesPage() {
           <p className="mt-8 max-w-2xl text-2xl text-gray-600">
             A visual record of what is growing in the garden.
           </p>
-        </div>
-
+          </div>
+        <GardenNav current="babies" />
         <section className="mt-24">
           <h2 className="text-4xl font-serif">
             Growing now

@@ -1,6 +1,7 @@
 import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import GardenGallery from '../GardenGallery'
+import GardenNav from '../GardenNav'
 
 const GARDEN_QUERY = `*[_type == "gardenEntry"] | order(observedAt desc) {
   _id,
@@ -32,10 +33,12 @@ export default async function GardenJournalPage() {
           <p className="mt-10 max-w-2xl text-2xl text-gray-600">
             Observations, experiments and lessons from a living garden.
           </p>
-        </div>
+           </div>
 
-        {/* Journal entries */}
-        <section className="mt-24 border-t border-gray-200 pt-12">
+    <GardenNav current="journal" />
+
+    {/* Journal entries */}
+    <section className="mt-24 border-t border-gray-200 pt-12">
          
 
           {gardenEntries.map((entry: any) => (

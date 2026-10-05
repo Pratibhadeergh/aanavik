@@ -147,7 +147,7 @@ pay attention to the response.
   </div>
 
   <p className="mt-6 text-sm text-gray-600">
-    Explore Why Aanavik →
+    <a href="/why-aanavik" className="inline-block py-2">Explore Why Aanavik →</a>
   </p>
 </div>
       <div
@@ -170,7 +170,7 @@ pay attention to the response.
               life.
             </p>
             <p className="mt-4 text-sm text-gray-600">
-              Read the writing →
+<a href="/writing" className="inline-block py-2">Read the writing →</a>
             </p>
           </div>
 
@@ -180,7 +180,7 @@ pay attention to the response.
               The science, evidence and questions behind the work.
             </p>
             <p className="mt-4 text-sm text-gray-600">
-              Explore the research →
+              <a href="/research" className="inline-block py-2">Explore the research →</a>
             </p>
           </div>
 
@@ -190,7 +190,7 @@ pay attention to the response.
               Growing, observing and learning from living systems.
             </p>
             <p className="mt-4 text-sm text-gray-600">
-              Enter the garden →
+              <a href="/garden" className="inline-block py-2">Enter the garden →</a>
             </p>
           </div>
         </div>

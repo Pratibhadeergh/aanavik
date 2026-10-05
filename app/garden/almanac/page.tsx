@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { crops } from './crops'
 import { tomatoSeedStarts } from './seedLines'
 import Link from 'next/link'
-
+import GardenNav from '../GardenNav'
 type Status = 'start' | 'prepare' | 'watch' | 'wait'
 type WeatherDay = {
   date: string
@@ -182,7 +182,7 @@ export default function AlmanacPage() {
             Delhi, India
           </p>
         </div>
-
+<GardenNav current="almanac" />
         {/* Status groups */}
         {groupedStatuses.map((status) => {
           const matchingPlants = plants.filter(

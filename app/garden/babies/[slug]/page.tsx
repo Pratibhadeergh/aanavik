@@ -41,13 +41,18 @@ export default async function BabyPage({
   }
 
   const plant = plantEntries[0].plant
-
+const titleSize =
+  plant.length <= 15
+    ? 'text-6xl'
+    : plant.length <= 19
+      ? 'text-5xl'
+      : 'text-4xl'
   return (
     <main className="px-6 py-20">
       <div className="mx-auto max-w-5xl">
 
         <div>
-          <h1 className="text-6xl font-serif leading-tight">
+          <h1 className={`${titleSize} font-serif leading-tight`}>
             {plant}
           </h1>
 
