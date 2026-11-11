@@ -69,6 +69,22 @@ export const gardenEntry = defineType({
       type: 'array',
       of: [{type: 'string'}],
     }),
+
+    defineField({
+      name: 'visibility',
+      title: 'Journal visibility',
+      type: 'string',
+      description: 'Keep observations private by default. Only entries explicitly marked public appear in the Garden Journal on Aanavik.',
+      options: {
+        list: [
+          {title: 'Private working note', value: 'private'},
+          {title: 'Publish in Garden Journal', value: 'public'},
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'private',
+      validation: (Rule) => Rule.required(),
+    }),
   ],
 
   preview: {
@@ -76,11 +92,12 @@ export const gardenEntry = defineType({
       title: 'title',
       plant: 'plant',
       date: 'observedAt',
+      visibility: 'visibility',
     },
-    prepare({title, plant, date}) {
+    prepare({title, plant, date, visibility}) {
       return {
         title,
-        subtitle: `${plant} · ${date ? new Date(date).toLocaleDateString() : ''}`,
+        subtitle: `${visibility === 'public' ? 'Public' : 'Private'} · ${plant || 'Unassigned plant'} · ${date ? new Date(date).toLocaleDateString() : ''}`,
       }
     },
   },
