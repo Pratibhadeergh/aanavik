@@ -45,6 +45,20 @@ export const writingPost = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'domain',
+      title: 'Aanavik domain',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Human Layer', value: 'human-layer'},
+          {title: 'Stability Stack', value: 'stability-stack'},
+          {title: 'Garden', value: 'garden'},
+          {title: 'Cross-domain', value: 'cross-domain'},
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'series',
       title: 'Series',
       type: 'reference',
@@ -63,6 +77,14 @@ export const writingPost = defineType({
       type: 'array',
       of: [{type: 'block'}, {type: 'image', options: {hotspot: true}}],
       description: 'Optional article content for future publication on Aanavik.',
+    }),
+    defineField({
+      name: 'sourceGardenEntries',
+      title: 'Source garden observations',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'gardenEntry'}]}],
+      description: 'Optional links to private or public journal entries that informed this published piece. Referenced notes do not become public automatically.',
+      hidden: ({document}) => document?.kind !== 'garden-observation',
     }),
     defineField({
       name: 'featured',
@@ -90,11 +112,11 @@ export const writingPost = defineType({
     },
   ],
   preview: {
-    select: {title: 'title', kind: 'kind', date: 'publishedAt'},
-    prepare({title, kind, date}) {
+    select: {title: 'title', kind: 'kind', date: 'publishedAt', domain: 'domain'},
+    prepare({title, kind, date, domain}) {
       return {
         title,
-        subtitle: [kind, date ? new Date(date).toLocaleDateString() : 'Unscheduled'].filter(Boolean).join(' · '),
+        subtitle: [kind, domain, date ? new Date(date).toLocaleDateString() : 'Unscheduled'].filter(Boolean).join(' · '),
       }
     },
   },
