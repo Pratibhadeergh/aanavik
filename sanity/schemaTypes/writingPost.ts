@@ -83,7 +83,7 @@ export const writingPost = defineType({
       title: 'Source garden observations',
       type: 'array',
       of: [{type: 'reference', to: [{type: 'gardenEntry'}]}],
-      description: 'Optional links to private or public journal entries that informed this published piece. Referenced notes do not become public automatically.',
+      description: 'Optional links to Garden Journal entries approved for publication and used as sources. The production dataset is public; do not reference private working notes here.',
       hidden: ({document}) => document?.kind !== 'garden-observation',
     }),
     defineField({
