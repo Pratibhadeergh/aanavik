@@ -3,6 +3,18 @@ import {client} from "@/sanity/lib/client";
 import GardenGallery from "../GardenGallery";
 import GardenNav from "../GardenNav";
 
+type GardenEntry = {
+  _id: string;
+  observedAt: string;
+  plant?: string;
+  title: string;
+  observation: any;
+  images?: Array<{
+    asset?: {_ref?: string};
+    caption?: string;
+  }>;
+};
+
 const GARDEN_QUERY = `*[_type == "gardenEntry"] | order(observedAt desc) {
   _id,
   observedAt,
@@ -16,7 +28,7 @@ const GARDEN_QUERY = `*[_type == "gardenEntry"] | order(observedAt desc) {
 }`;
 
 export default async function GardenJournalPage() {
-  const gardenEntries = await client.fetch(GARDEN_QUERY);
+  const gardenEntries = await client.fetch<GardenEntry[]>(GARDEN_QUERY);
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:px-14 lg:py-28">
@@ -34,14 +46,7 @@ export default async function GardenJournalPage() {
 
       <section className="mt-16 border-t border-[var(--line)] pt-8">
         {gardenEntries.length > 0 ? (
-          gardenEntries.map((entry: {
-            _id: string;
-            observedAt: string;
-            plant?: string;
-            title: string;
-            observation: any;
-            images?: Array<{asset: unknown; caption?: string}>;
-          }) => (
+          gardenEntries.map((entry) => (
             <article key={entry._id} className="max-w-4xl border-b border-[var(--line)] py-10">
               <p className="editorial-eyebrow">
                 {new Date(entry.observedAt).toLocaleDateString("en-IN", {
