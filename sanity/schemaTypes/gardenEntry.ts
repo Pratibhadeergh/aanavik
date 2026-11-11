@@ -80,7 +80,7 @@ export const gardenEntry = defineType({
     prepare({title, plant, date}) {
       return {
         title,
-        subtitle: `${plant || 'Unassigned plant'} · ${date ? new Date(date).toLocaleDateString() : ''}`,
+        subtitle: `${plant} · ${date ? new Date(date).toLocaleDateString() : ''}`,
       }
     },
   },
