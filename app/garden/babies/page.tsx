@@ -3,7 +3,7 @@ import { urlFor } from '@/sanity/lib/image'
 import Link from 'next/link'
 import GardenNav from '../GardenNav'
 
-const GARDEN_QUERY = `*[_type == "gardenEntry" && defined(plant)] | order(observedAt desc) {
+const GARDEN_QUERY = `*[_type == "gardenEntry" && visibility == "public" && defined(plant)] | order(observedAt desc) {
   _id,
   observedAt,
   plant,
