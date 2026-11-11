@@ -3,7 +3,7 @@ import {client} from "@/sanity/lib/client";
 import GardenGallery from "../GardenGallery";
 import GardenNav from "../GardenNav";
 
-const GARDEN_QUERY = `*[_type == "gardenEntry" && visibility == "public"] | order(observedAt desc) {
+const GARDEN_QUERY = `*[_type == "gardenEntry"] | order(observedAt desc) {
   _id,
   observedAt,
   plant,
