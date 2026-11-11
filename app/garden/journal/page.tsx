@@ -1,9 +1,9 @@
-import { PortableText } from '@portabletext/react'
-import { client } from '@/sanity/lib/client'
-import GardenGallery from '../GardenGallery'
-import GardenNav from '../GardenNav'
+import {PortableText} from "@portabletext/react";
+import {client} from "@/sanity/lib/client";
+import GardenGallery from "../GardenGallery";
+import GardenNav from "../GardenNav";
 
-const GARDEN_QUERY = `*[_type == "gardenEntry"] | order(observedAt desc) {
+const GARDEN_QUERY = `*[_type == "gardenEntry" && visibility == "public"] | order(observedAt desc) {
   _id,
   observedAt,
   plant,
@@ -13,64 +13,59 @@ const GARDEN_QUERY = `*[_type == "gardenEntry"] | order(observedAt desc) {
     asset,
     caption
   }
-}`
+}`;
 
 export default async function GardenJournalPage() {
-  const gardenEntries = await client.fetch(GARDEN_QUERY)
+  const gardenEntries = await client.fetch(GARDEN_QUERY);
 
   return (
-    <main className="px-6 py-20">
-      <div className="mx-auto max-w-4xl">
+    <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:px-14 lg:py-28">
+      <header className="max-w-4xl">
+        <p className="editorial-eyebrow">Garden · Selected observations</p>
+        <h1 className="mt-6 font-serif text-5xl leading-tight tracking-tight text-[var(--soil)] sm:text-6xl">
+          The garden, day to day.
+        </h1>
+        <p className="mt-8 max-w-2xl text-xl leading-relaxed text-[var(--muted)] sm:text-2xl">
+          Selected observations, experiments and lessons from a living garden.
+        </p>
+      </header>
 
-        {/* Hero */}
-        <div>
-          
+      <GardenNav current="journal" />
 
-          <h1 className="mt-6 text-6xl font-serif leading-tight">
-           The garden, day to day.
-          </h1>
-
-          <p className="mt-10 max-w-2xl text-2xl text-gray-600">
-            Observations, experiments and lessons from a living garden.
-          </p>
-           </div>
-
-    <GardenNav current="journal" />
-
-    {/* Journal entries */}
-    <section className="mt-24 border-t border-gray-200 pt-12">
-         
-
-          {gardenEntries.map((entry: any) => (
-            <article key={entry._id} className="mt-10 max-w-3xl">
-
-              <p className="text-sm text-gray-500">
-                {new Date(entry.observedAt).toLocaleString('en-IN', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                  hour: 'numeric',
-                  minute: '2-digit',
-                  hour12: true,
-                  timeZone: 'Asia/Kolkata',
+      <section className="mt-16 border-t border-[var(--line)] pt-8">
+        {gardenEntries.length > 0 ? (
+          gardenEntries.map((entry: {
+            _id: string;
+            observedAt: string;
+            plant?: string;
+            title: string;
+            observation: any;
+            images?: Array<{asset: unknown; caption?: string}>;
+          }) => (
+            <article key={entry._id} className="max-w-4xl border-b border-[var(--line)] py-10">
+              <p className="editorial-eyebrow">
+                {new Date(entry.observedAt).toLocaleDateString("en-IN", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                  timeZone: "Asia/Kolkata",
                 })}
+                {entry.plant ? ` · ${entry.plant}` : ""}
               </p>
-
-              <h2 className="mt-3 text-3xl font-serif">
+              <h2 className="mt-4 font-serif text-3xl text-[var(--soil)] sm:text-4xl">
                 {entry.title}
               </h2>
-
-              <div className="mt-6 text-lg leading-8 text-gray-700 [&>p+p]:mt-4">
+              <div className="mt-6 max-w-3xl text-base leading-8 text-[var(--muted)] sm:text-lg [&>p+p]:mt-4">
                 <PortableText
                   value={entry.observation}
                   components={{
                     marks: {
-                      link: ({ value, children }) => (
+                      link: ({value, children}) => (
                         <a
                           href={value?.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="underline underline-offset-4 decoration-gray-400 hover:decoration-gray-700"
+                          className="underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--soil)]"
                         >
                           {children}
                         </a>
@@ -79,19 +74,17 @@ export default async function GardenJournalPage() {
                   }}
                 />
               </div>
-
-              {entry.images?.length > 0 && (
-                <GardenGallery
-                  images={entry.images}
-                  title={entry.title}
-                />
-              )}
-
+              {entry.images?.length ? (
+                <GardenGallery images={entry.images} title={entry.title} />
+              ) : null}
             </article>
-          ))}
-        </section>
-
-      </div>
-    </main>
-  )
+          ))
+        ) : (
+          <p className="max-w-2xl py-8 text-base leading-7 text-[var(--muted)]">
+            Selected garden observations will appear here as they are ready to be shared.
+          </p>
+        )}
+      </section>
+    </div>
+  );
 }
