@@ -15,6 +15,8 @@ export const thinkingBook = defineType({
         {title: 'Want to read', value: 'to-read'},
         {title: 'Reading', value: 'reading'},
         {title: 'Completed', value: 'completed'},
+        {title: 'Rereading', value: 'rereading'},
+        {title: 'Needs review', value: 'needs-review'},
         {title: 'Paused', value: 'paused'},
       ]},
       initialValue: 'to-read', validation: (Rule) => Rule.required(),
