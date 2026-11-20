@@ -134,10 +134,10 @@ export default function ThinkingShelfPage() {
             </p>
             <p>I chose reading.</p>
             <p>
-              The reading streak began as a keystone habit. The number of
-              books completed was never the target. The intention was to
-              learn, to follow ideas, and to put some things in place as a
-              foundation for the work ahead.
+              Today is day 31 of the streak. I have finished five books in
+              27 days of active reading, but the number was never the target.
+              The intention was to learn, to follow ideas, and to put some
+              things in place as a foundation for the work ahead.
             </p>
             <p>
               The first five books in this stretch have been{" "}
