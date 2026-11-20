@@ -41,12 +41,12 @@ const originalCompletedBooks = [
 
 const originalNextBooks = [
   {title: "Deep Work", author: "Cal Newport", note: "A revisit"},
-  {title: "Books by Gay Hendricks", note: "Returning to work I have read before"},
+  {title: "Gay Hendricks — books to revisit", author: "Gay Hendricks", note: "Returning to work I have read before; individual titles to be added"},
   {title: "Into the Magic Shop", author: "James R. Doty", note: "Alongside its companion book"},
   {title: "Atlas of the Heart", author: "Brené Brown", note: "Exploring emotions and human connection"},
-  {title: "The Courage to Be Disliked", note: "Waiting on the shelf"},
-  {title: "Thinking, Fast and Slow", note: "Waiting on the shelf"},
-  {title: "The Mountain Is You", note: "Waiting on the shelf"},
+  {title: "The Courage to Be Disliked", author: "Ichiro Kishimi and Fumitake Koga", note: "Waiting on the shelf"},
+  {title: "Thinking, Fast and Slow", author: "Daniel Kahneman", note: "Waiting on the shelf"},
+  {title: "The Mountain Is You", author: "Brianna Wiest", note: "Waiting on the shelf"},
 ];
 
 const statusLabels: Record<string, string> = {
