@@ -30,6 +30,7 @@ export const thinkingBook = defineType({
         {title: 'Audible', value: 'audible'},
       ]},
     }),
+    defineField({name: 'theme', title: 'Ideas or themes I associate with this book', type: 'string'}),
     defineField({name: 'note', title: 'Why this book is on the shelf', type: 'text', rows: 3}),
     defineField({name: 'isbn', title: 'ISBN (optional)', type: 'string'}),
     defineField({name: 'featured', title: 'Feature on the Thinking Shelf', type: 'boolean', initialValue: false}),
