@@ -71,7 +71,7 @@ export default function Navigation() {
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className={`px-4 py-3 text-sm transition-colors hover:bg-[var(--background)] hover:text-[var(--soil)] ${
-                  pathname === link.href ? "text-[var(--soil)]" : "text-[var(--muted)]"
+                  pathname === link.href || pathname.startsWith(`${link.href}/`) ? "text-[var(--soil)]" : "text-[var(--muted)]"
                 }`}
                 aria-current={pathname === link.href ? "page" : undefined}
               >
