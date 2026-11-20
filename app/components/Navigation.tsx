@@ -7,6 +7,7 @@ import { useState } from "react";
 const links = [
   { href: "/why-aanavik", label: "Why Aanavik" },
   { href: "/writing", label: "Writing" },
+  { href: "/thinking-shelf", label: "Thinking Shelf" },
   { href: "/research", label: "Research" },
   { href: "/garden", label: "Garden" },
 ];
@@ -70,7 +71,7 @@ export default function Navigation() {
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className={`px-4 py-3 text-sm transition-colors hover:bg-[var(--background)] hover:text-[var(--soil)] ${
-                  pathname === link.href ? "text-[var(--soil)]" : "text-[var(--muted)]"
+                  pathname === link.href || pathname.startsWith(`${link.href}/`) ? "text-[var(--soil)]" : "text-[var(--muted)]"
                 }`}
                 aria-current={pathname === link.href ? "page" : undefined}
               >
