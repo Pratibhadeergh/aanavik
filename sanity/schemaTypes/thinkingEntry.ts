@@ -7,7 +7,7 @@ export const thinkingEntry = defineType({
   fields: [
     defineField({name: 'title', title: 'Article title', type: 'string', validation: (Rule) => Rule.required()}),
     defineField({name: 'slug', title: 'Slug', type: 'slug', options: {source: 'title', maxLength: 96}, validation: (Rule) => Rule.required()}),
-    defineField({name: 'book', title: 'Book', type: 'reference', to: [{type: 'thinkingBook'}], validation: (Rule) => Rule.required()}),
+    defineField({name: 'book', title: 'Related book (optional)', type: 'reference', to: [{type: 'thinkingBook'}], description: 'Link this reflection to a book, or leave it empty for a standalone Thinking Shelf article.'}),
     defineField({name: 'excerpt', title: 'Short introduction', type: 'text', rows: 3, validation: (Rule) => Rule.required()}),
     defineField({name: 'publishedAt', title: 'Publication date', type: 'datetime'}),
     defineField({
