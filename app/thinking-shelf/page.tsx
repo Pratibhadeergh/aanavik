@@ -31,6 +31,24 @@ type Entry = {
   bookTitle?: string; bookSlug?: string;
 };
 
+const originalCompletedBooks = [
+  {title: "Beyond Belief", theme: "Beliefs, mindset and possibility"},
+  {title: "Think Again", author: "Adam Grant", theme: "Rethinking, metacognition and intellectual humility"},
+  {title: "Hooked by Design", theme: "Design and behavioural influence"},
+  {title: "The Girls Aren't Fine", theme: "Gender and contemporary social experience"},
+  {title: "The Five Dysfunctions of a Team", author: "Patrick Lencioni", theme: "Trust, conflict and collective behaviour"},
+];
+
+const originalNextBooks = [
+  {title: "Deep Work", author: "Cal Newport", note: "A revisit"},
+  {title: "Books by Gay Hendricks", note: "Returning to work I have read before"},
+  {title: "Into the Magic Shop", author: "James R. Doty", note: "Alongside its companion book"},
+  {title: "Atlas of the Heart", author: "Brené Brown", note: "Exploring emotions and human connection"},
+  {title: "The Courage to Be Disliked", note: "Waiting on the shelf"},
+  {title: "Thinking, Fast and Slow", note: "Waiting on the shelf"},
+  {title: "The Mountain Is You", note: "Waiting on the shelf"},
+];
+
 const statusLabels: Record<string, string> = {
   "to-read": "On the reading list", reading: "Currently reading", completed: "Completed", paused: "Paused",
 };
@@ -138,7 +156,7 @@ export default async function ThinkingShelfPage() {
         </section>
       )}
 
-      {completed.length > 0 && (
+      {(completed.length > 0 || books.length === 0) && (
         <section className="mt-20 border-t border-[var(--line)] pt-9">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
@@ -150,16 +168,18 @@ export default async function ThinkingShelfPage() {
             </p>
           </div>
           <div className="mt-8 divide-y divide-[var(--line)] border-y border-[var(--line)]">
-            {completed.map((book, index) => (
-              <article key={book._id} className="grid gap-2 py-5 md:grid-cols-[3rem_1fr_1fr] md:items-baseline md:gap-6">
+            {(completed.length > 0 ? completed : originalCompletedBooks).map((book, index) => (
+              <article key={"_id" in book ? book._id : book.title} className="grid gap-2 py-5 md:grid-cols-[3rem_1fr_1fr] md:items-baseline md:gap-6">
                 <p className="text-sm tabular-nums text-[var(--muted)]">{String(index + 1).padStart(2, "0")}</p>
                 <div>
                   <h3 className="font-serif text-xl text-[var(--soil)]">
-                    <Link href={`/thinking-shelf/books/${book.slug}`} className="hover:text-[var(--leaf)]">{book.title}</Link>
+                    {"slug" in book && book.slug
+                      ? <Link href={`/thinking-shelf/books/${book.slug}`} className="hover:text-[var(--leaf)]">{book.title}</Link>
+                      : book.title}
                   </h3>
-                  <p className="mt-1 text-sm text-[var(--muted)]">{book.author}</p>
+                  {book.author && <p className="mt-1 text-sm text-[var(--muted)]">{book.author}</p>}
                 </div>
-                <p className="text-sm leading-relaxed text-[var(--muted)]">{book.theme || book.note}</p>
+                <p className="text-sm leading-relaxed text-[var(--muted)]">{"theme" in book ? book.theme : book.note}</p>
               </article>
             ))}
           </div>
@@ -195,17 +215,19 @@ export default async function ThinkingShelfPage() {
         )}
       </section>
 
-      {upcoming.length > 0 && (
+      {(upcoming.length > 0 || books.length === 0) && (
         <section className="mt-20 border-t border-[var(--line)] pt-9">
           <p className="editorial-eyebrow">Waiting on the shelf</p>
           <h2 className="mt-3 font-serif text-3xl text-[var(--soil)] sm:text-4xl">Where curiosity goes next.</h2>
           <div className="mt-8 grid gap-px border border-[var(--line)] bg-[var(--line)] sm:grid-cols-2">
-            {upcoming.map((book) => (
-              <article key={book._id} className="bg-[var(--background)] p-6 md:p-8">
+            {(upcoming.length > 0 ? upcoming : originalNextBooks).map((book) => (
+              <article key={"_id" in book ? book._id : book.title} className="bg-[var(--background)] p-6 md:p-8">
                 <h3 className="font-serif text-xl text-[var(--soil)]">
-                  <Link href={`/thinking-shelf/books/${book.slug}`} className="hover:text-[var(--leaf)]">{book.title}</Link>
+                  {"slug" in book && book.slug
+                    ? <Link href={`/thinking-shelf/books/${book.slug}`} className="hover:text-[var(--leaf)]">{book.title}</Link>
+                    : book.title}
                 </h3>
-                <p className="mt-1 text-sm text-[var(--muted)]">{book.author}</p>
+                {book.author && <p className="mt-1 text-sm text-[var(--muted)]">{book.author}</p>}
                 {book.note && <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{book.note}</p>}
               </article>
             ))}
