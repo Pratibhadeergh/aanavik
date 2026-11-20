@@ -32,10 +32,10 @@ type Entry = {
 };
 
 const originalCompletedBooks = [
-  {title: "Beyond Belief", theme: "Beliefs, mindset and possibility"},
+  {title: "Beyond Belief", author: "Nir Eyal", theme: "Beliefs, mindset and possibility"},
   {title: "Think Again", author: "Adam Grant", theme: "Rethinking, metacognition and intellectual humility"},
-  {title: "Hooked by Design", theme: "Design and behavioural influence"},
-  {title: "The Girls Aren't Fine", theme: "Gender and contemporary social experience"},
+  {title: "Hooked by Design", author: "Dr. Ramya Ranganathan", theme: "Design and behavioural influence"},
+  {title: "The Girls Aren't Fine", author: "Harnidh Kaur", theme: "Gender and contemporary social experience"},
   {title: "The Five Dysfunctions of a Team", author: "Patrick Lencioni", theme: "Trust, conflict and collective behaviour"},
 ];
 
@@ -169,8 +169,17 @@ export default async function ThinkingShelfPage() {
           </div>
           <div className="mt-8 divide-y divide-[var(--line)] border-y border-[var(--line)]">
             {(completed.length > 0 ? completed : originalCompletedBooks).map((book, index) => (
-              <article key={"_id" in book ? book._id : book.title} className="grid gap-2 py-5 md:grid-cols-[3rem_1fr_1fr] md:items-baseline md:gap-6">
+              <article key={"_id" in book ? book._id : book.title} className="grid gap-3 py-5 md:grid-cols-[3rem_4rem_1fr_1fr] md:items-center md:gap-6">
                 <p className="text-sm tabular-nums text-[var(--muted)]">{String(index + 1).padStart(2, "0")}</p>
+                <div className="w-14">
+                  {"cover" in book && book.cover ? (
+                    <img
+                      src={urlFor(book.cover).width(160).height(220).fit("max").url()}
+                      alt={`Cover of ${book.title}`}
+                      className="w-full shadow-sm"
+                    />
+                  ) : null}
+                </div>
                 <div>
                   <h3 className="font-serif text-xl text-[var(--soil)]">
                     {"slug" in book && book.slug
