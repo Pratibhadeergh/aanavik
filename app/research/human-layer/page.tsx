@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NextImage from "next/image";
 
 const stages = [
   {
@@ -45,7 +46,16 @@ export default function HumanLayerPage() {
           conditions.
         </p>
       </header>
-
+      <section className="mt-12">
+        <NextImage
+          src="/images/human-layer-algae.png"
+          alt="Microscopic green algae spheres, illustrating biological complexity"
+          width={1800}
+          height={1100}
+          className="h-auto w-full"
+          sizes="(max-width: 768px) 100vw, 1200px"
+        />
+      </section>
       <div className="mt-20 border-t border-[var(--line)]">
         {stages.map((stage) => (
           <section

@@ -4,7 +4,7 @@ import {client} from "@/sanity/lib/client";
 import {urlFor} from "@/sanity/lib/image";
 
 const BOOK_QUERY = `*[_type == "thinkingBook" && slug.current == $slug][0] {
-  _id, title, author, status, note, formats, startedOn, finishedOn, cover,
+  _id, title, author, status, note, theme, formats, startedOn, finishedOn, cover,
   "slug": slug.current,
   "entries": *[_type == "thinkingEntry" && references(^._id) && defined(publishedAt)] | order(publishedAt desc) {
     title, excerpt, publishedAt, "slug": slug.current
@@ -12,7 +12,7 @@ const BOOK_QUERY = `*[_type == "thinkingBook" && slug.current == $slug][0] {
 }`;
 
 type BookData = {
-  _id: string; title: string; author: string; status: string; note?: string;
+  _id: string; title: string; author: string; status: string; note?: string; theme?: string;
   formats?: string[]; startedOn?: string; finishedOn?: string; cover?: any; slug: string;
   entries: {title: string; excerpt: string; publishedAt: string; slug: string}[];
 };
@@ -32,7 +32,8 @@ export default async function ThinkingBookPage({params}: {params: Promise<{slug:
           <h1 className="mt-5 font-serif text-4xl leading-tight text-[var(--soil)] sm:text-5xl">{book.title}</h1>
           <p className="mt-4 font-serif text-xl text-[var(--muted)]">{book.author}</p>
           <p className="mt-5 text-xs uppercase tracking-[0.14em] text-[var(--leaf)]">{book.status.replace("-", " ")}</p>
-          {book.note && <p className="mt-7 max-w-2xl text-base leading-8 text-[var(--muted)]">{book.note}</p>}
+          {book.theme && <p className="mt-7 max-w-2xl text-sm uppercase tracking-[0.12em] text-[var(--leaf)]">{book.theme}</p>}
+          {book.note && <p className="mt-4 max-w-2xl text-base leading-8 text-[var(--muted)]">{book.note}</p>}
           <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[var(--muted)]">
             {book.startedOn && <span>Started {new Date(book.startedOn).toLocaleDateString("en", {month: "short", year: "numeric"})}</span>}
             {book.finishedOn && <span>Finished {new Date(book.finishedOn).toLocaleDateString("en", {month: "short", year: "numeric"})}</span>}

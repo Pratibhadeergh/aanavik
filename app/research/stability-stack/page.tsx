@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NextImage from "next/image";
 
 const layers = [
   {
@@ -68,7 +69,16 @@ export default function StabilityStackPage() {
           </p>
         </div>
       </section>
-
+      <section className="mt-16">
+        <NextImage
+  src="/images/Translucent Botanical Layer Stack.png"
+  alt="Translucent botanical layers arranged as a connected system"
+  width={1800}
+  height={1100}
+  className="h-auto w-full"
+  sizes="(max-width: 768px) 100vw, 1200px"
+/>
+      </section>
       <section className="mt-20">
         <div className="max-w-2xl">
           <p className="editorial-eyebrow">Five interacting layers</p>

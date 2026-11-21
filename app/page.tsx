@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NextImage from "next/image";
 
 const domains = [
   {
@@ -62,6 +63,8 @@ export default function Home() {
           aria-hidden="true"
           className="relative mx-auto hidden aspect-square w-full max-w-[27rem] items-center justify-center lg:flex"
         >
+                    
+          
           <div className="absolute inset-[8%] rounded-full border border-[var(--line)]" />
           <div className="absolute inset-[19%] rounded-full border border-[var(--line)]" />
           <div className="absolute inset-[30%] rounded-full border border-[var(--line)]" />
@@ -111,7 +114,16 @@ export default function Home() {
           </div>
         </div>
       </section>
-
+      <section className="mx-auto max-w-7xl px-6 py-12 md:px-10 lg:px-14">
+        <NextImage
+          src="/images/Luminous Seedling Vein Network.png"
+          alt="A luminous network of branching botanical veins"
+          width={1800}
+          height={1200}
+          className="h-auto w-full"
+          sizes="(max-width: 768px) 100vw, 1200px"
+        />
+      </section>
       <section className="mx-auto max-w-7xl px-6 py-20 md:px-10 lg:px-14 lg:py-28">
         <div className="max-w-2xl">
           <p className="editorial-eyebrow">Three entry points</p>
