@@ -195,3 +195,32 @@ The current package manifest includes Next.js and Sanity but no Supabase client.
 ## Product principle
 
 **The Almanac should not merely tell gardeners what to do. It should show why, show how certain it is, and learn from what actually happens in their gardens.**
+
+
+## Delhi planting calendar: indicative windows (product requirement)
+
+The primary Almanac experience is a simple, useful Delhi-wide seasonal guide. It should show **indicative date ranges for what can be sown**, rather than prescribe a single exact planting date or require every gardener to configure a detailed microclimate profile.
+
+For each crop and action, display:
+- A recommended Delhi sowing window as a date range (not a single date).
+- The action clearly distinguished: direct sowing, sowing in trays/nursery, or transplanting.
+- A short note on relevant seed/cultivar differences and important conditions.
+- A plain-language flexibility note: gardeners can generally consider a margin of about **±5 days** around the indicative window, adjusting for seed packet guidance, cultivar, seed availability, weather, soil readiness, water, space, trays and other resources.
+- Evidence/provenance and confidence, so the user can tell whether the window comes from a published local guide, repeated local trials, or preliminary community observations.
+
+The ±5-day margin is a practical planning allowance, not a biological guarantee or a universal rule. Some crops, cultivars, weather events and sowing methods may require a wider or narrower window. The interface must show exceptions where known and must not imply that shifting dates is always safe.
+
+### User-facing presentation
+
+Organise the calendar by month or seasonal period, with a clear list of crops that can be sown in that period. Each crop entry should show the date range and sowing method. Keep the default experience useful without requiring exact garden coordinates, soil sensors, moon phases or a detailed garden journal.
+
+Detailed location, terrace/ground context and garden observations can refine recommendations later, but should be optional layers rather than prerequisites for seeing the Delhi baseline.
+
+### Recommendation hierarchy
+
+1. **Delhi baseline window:** the main indicative range for the city/region.
+2. **Crop and cultivar notes:** seed-packet instructions, variety-specific differences and sowing method.
+3. **Optional garden adjustment:** local exposure, terrace/ground conditions, soil temperature, weather and resource readiness.
+4. **Observed outcomes:** journal and community records that can refine future regional windows, with provenance retained.
+
+Do not make up or publish crop windows without traceable sources or clearly labelled trial evidence. The first implementation task is to compile and review a sourced Delhi crop-window table before presenting it as authoritative.
