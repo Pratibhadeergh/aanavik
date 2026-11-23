@@ -20,12 +20,12 @@ const components: PortableTextComponents = {
   block: {
     h2: ({children}) => <h2 className="mt-14 font-serif text-3xl leading-tight text-[var(--soil)]">{children}</h2>,
     h3: ({children}) => <h3 className="mt-10 font-serif text-2xl text-[var(--soil)]">{children}</h3>,
-    normal: ({children}) => <p className="mt-6 text-base leading-8 text-[var(--foreground)]">{children}</p>,
+    normal: ({children}) => <p className="mt-7 text-[17px] leading-[1.8] text-[var(--foreground)] sm:text-[18px]">{children}</p>,
     blockquote: ({children}) => <blockquote className="my-10 border-l-2 border-[var(--leaf)] pl-6 font-serif text-2xl leading-relaxed text-[var(--soil)]">{children}</blockquote>,
   },
   list: {
-    bullet: ({children}) => <ul className="mt-6 list-disc space-y-2 pl-6 text-base leading-8 text-[var(--foreground)]">{children}</ul>,
-    number: ({children}) => <ol className="mt-6 list-decimal space-y-2 pl-6 text-base leading-8 text-[var(--foreground)]">{children}</ol>,
+    bullet: ({children}) => <ul className="mt-7 list-disc space-y-3 pl-6 text-[17px] leading-[1.8] text-[var(--foreground)] sm:text-[18px]">{children}</ul>,
+    number: ({children}) => <ol className="mt-7 list-decimal space-y-3 pl-6 text-[17px] leading-[1.8] text-[var(--foreground)] sm:text-[18px]">{children}</ol>,
   },
   types: {
     image: ({value}) => <figure className="my-10">
