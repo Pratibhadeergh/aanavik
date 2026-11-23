@@ -29,7 +29,7 @@ export default async function ThinkingBookPage({params}: {params: Promise<{slug:
         {book.cover && <img src={urlFor(book.cover).width(480).height(680).fit("max").url()} alt={`Cover of ${book.title}`} className="w-36 shadow-md md:w-48" />}
         <div>
           <p className="editorial-eyebrow">A book on the Thinking Shelf</p>
-          <h1 className="mt-5 font-serif text-4xl leading-tight text-[var(--soil)] sm:text-5xl">{book.title}</h1>
+          <h1 className="mt-5 font-serif text-3xl leading-tight text-[var(--soil)] sm:text-4xl">{book.title}</h1>
           <p className="mt-4 font-serif text-xl text-[var(--muted)]">{book.author}</p>
           <p className="mt-5 text-xs uppercase tracking-[0.14em] text-[var(--leaf)]">{book.status.replace("-", " ")}</p>
           {book.theme && <p className="mt-7 max-w-2xl text-sm uppercase tracking-[0.12em] text-[var(--leaf)]">{book.theme}</p>}
@@ -44,7 +44,7 @@ export default async function ThinkingBookPage({params}: {params: Promise<{slug:
 
       <section className="mt-20 border-t border-[var(--line)] pt-9">
         <p className="editorial-eyebrow">Thinking beyond the pages</p>
-        <h2 className="mt-4 font-serif text-3xl text-[var(--soil)]">Reflections on this book</h2>
+        <h2 className="mt-4 font-serif text-2xl text-[var(--soil)] sm:text-3xl">Reflections on this book</h2>
         {book.entries.length > 0 ? (
           <div className="mt-8 divide-y divide-[var(--line)] border-y border-[var(--line)]">
             {book.entries.map((entry) => (
