@@ -158,16 +158,6 @@ export default async function ThinkingShelfPage() {
         </div>
       </section>
 
-      {current.length > 0 && (
-        <section className="mt-20 border-t border-[var(--line)] pt-10">
-          <p className="editorial-eyebrow">The reading table</p>
-          <h2 className="mt-3 font-serif text-3xl leading-snug text-[var(--soil)] sm:text-4xl">On the reading table</h2>
-          <div className="mt-8 grid grid-cols-1 gap-5">
-            {current.map((book) => <BookCard key={book._id} book={book} />)}
-          </div>
-        </section>
-      )}
-
       {(completed.length > 0 || originalCompletedBooks.length > 0) && (
         <section className="mt-20 border-t border-[var(--line)] pt-10">
           <p className="editorial-eyebrow">The books in this reading streak</p>
@@ -193,6 +183,17 @@ export default async function ThinkingShelfPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+      )}
+
+
+      {current.length > 0 && (
+        <section className="mt-20 border-t border-[var(--line)] pt-10">
+          <p className="editorial-eyebrow">The reading table</p>
+          <h2 className="mt-3 font-serif text-3xl leading-snug text-[var(--soil)] sm:text-4xl">On the reading table</h2>
+          <div className="mt-8 grid grid-cols-1 gap-5">
+            {current.map((book) => <BookCard key={book._id} book={book} />)}
           </div>
         </section>
       )}
