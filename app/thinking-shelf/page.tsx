@@ -168,7 +168,7 @@ export default async function ThinkingShelfPage() {
         </section>
       )}
 
-      {(completed.length > 0 || books.length === 0) && (
+      {(completed.length > 0 || originalCompletedBooks.length > 0) && (
         <section className="mt-20 border-t border-[var(--line)] pt-9">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             
@@ -183,7 +183,7 @@ export default async function ThinkingShelfPage() {
       </div>
           </div>
           <div className="mt-8 divide-y divide-[var(--line)] border-y border-[var(--line)]">
-            {(completed.length > 0 ? completed : originalCompletedBooks).map((book, index) => (
+            {[...completed, ...originalCompletedBooks.filter((oldBook) => !completed.some((book) => book.title.toLowerCase() === oldBook.title.toLowerCase()))].map((book, index) => (
               <article key={"_id" in book ? book._id : book.title} className="grid gap-3 py-5 md:grid-cols-[3rem_4rem_1fr_1fr] md:items-center md:gap-6">
                 <p className="text-sm tabular-nums text-[var(--muted)]">{String(index + 1).padStart(2, "0")}</p>
                 <div className="w-14">
