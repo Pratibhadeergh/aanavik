@@ -160,8 +160,9 @@ export default async function ThinkingShelfPage() {
 
       {current.length > 0 && (
         <section className="mt-20 border-t border-[var(--line)] pt-9">
-          <p className="editorial-eyebrow">On the reading table</p>
-          <div className="mt-7 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <p className="editorial-eyebrow">Currently reading</p>
+          <h2 className="mt-3 font-serif text-2xl leading-snug text-[var(--soil)] sm:text-3xl">On the reading table</h2>
+          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {current.map((book) => <BookCard key={book._id} book={book} />)}
           </div>
         </section>
@@ -283,21 +284,25 @@ export default async function ThinkingShelfPage() {
 
 function BookCard({book}: {book: Book}) {
   return (
-    <article className="flex gap-5 border-t border-[var(--soft-line)] pt-5">
+    <Link
+      href={`/thinking-shelf/books/${book.slug}`}
+      className="group flex h-full gap-5 border border-[var(--line)] bg-[var(--surface)] p-5 transition-colors hover:border-[var(--leaf)] hover:bg-[var(--soft)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--leaf)]"
+    >
       {book.cover && (
-        <Link href={`/thinking-shelf/books/${book.slug}`} className="w-20 shrink-0">
+        <div className="w-20 shrink-0">
           <img src={urlFor(book.cover).width(240).height(340).fit("max").url()} alt={`Cover of ${book.title}`} className="w-full shadow-sm" />
-        </Link>
+        </div>
       )}
-      <div className="min-w-0">
+      <div className="flex min-w-0 flex-col">
         <p className="editorial-eyebrow">{statusLabels[book.status] ?? "On the shelf"}</p>
-        <h3 className="mt-2 font-serif text-xl leading-snug text-[var(--soil)]">
-          <Link href={`/thinking-shelf/books/${book.slug}`} className="hover:text-[var(--leaf)]">{book.title}</Link>
+        <h3 className="mt-2 font-serif text-xl leading-snug text-[var(--soil)] transition-colors group-hover:text-[var(--leaf)]">
+          {book.title}
         </h3>
         <p className="mt-2 text-sm text-[var(--muted)]">{book.author}</p>
         {book.note && <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{book.note}</p>}
         {book.reflectionCount > 0 && <p className="mt-3 text-xs text-[var(--leaf)]">{book.reflectionCount} {book.reflectionCount === 1 ? "reflection" : "reflections"}</p>}
+        <span className="mt-5 text-sm font-medium text-[var(--leaf)]">View book and reflections <span aria-hidden="true">→</span></span>
       </div>
-    </article>
+    </Link>
   );
 }
