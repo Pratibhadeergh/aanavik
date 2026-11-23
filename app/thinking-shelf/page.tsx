@@ -159,10 +159,10 @@ export default async function ThinkingShelfPage() {
       </section>
 
       {current.length > 0 && (
-        <section className="mt-20 border-t border-[var(--line)] pt-9">
-          <p className="editorial-eyebrow">Currently reading</p>
-          <h2 className="mt-3 font-serif text-2xl leading-snug text-[var(--soil)] sm:text-3xl">On the reading table</h2>
-          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="mt-20 border-t border-[var(--line)] pt-10">
+          <p className="editorial-eyebrow">The reading table</p>
+          <h2 className="mt-3 font-serif text-3xl leading-snug text-[var(--soil)] sm:text-4xl">On the reading table</h2>
+          <div className="mt-8 grid grid-cols-1 gap-5">
             {current.map((book) => <BookCard key={book._id} book={book} />)}
           </div>
         </section>
@@ -293,15 +293,19 @@ function BookCard({book}: {book: Book}) {
           <img src={urlFor(book.cover).width(240).height(340).fit("max").url()} alt={`Cover of ${book.title}`} className="w-full shadow-sm" />
         </div>
       )}
-      <div className="flex min-w-0 flex-col">
-        <p className="editorial-eyebrow">{statusLabels[book.status] ?? "On the shelf"}</p>
-        <h3 className="mt-2 font-serif text-xl leading-snug text-[var(--soil)] transition-colors group-hover:text-[var(--leaf)]">
-          {book.title}
-        </h3>
-        <p className="mt-2 text-sm text-[var(--muted)]">{book.author}</p>
-        {book.note && <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{book.note}</p>}
-        {book.reflectionCount > 0 && <p className="mt-3 text-xs text-[var(--leaf)]">{book.reflectionCount} {book.reflectionCount === 1 ? "reflection" : "reflections"}</p>}
-        <span className="mt-5 text-sm font-medium text-[var(--leaf)]">View book and reflections <span aria-hidden="true">→</span></span>
+      <div className="flex min-w-0 flex-1 flex-col justify-center sm:flex-row sm:items-center sm:justify-between sm:gap-10">
+        <div className="min-w-0">
+          <p className="editorial-eyebrow">{statusLabels[book.status] ?? "On the shelf"}</p>
+          <h3 className="mt-2 font-serif text-2xl leading-snug text-[var(--soil)] transition-colors group-hover:text-[var(--leaf)] sm:text-3xl">
+            {book.title}
+          </h3>
+          <p className="mt-2 text-base text-[var(--muted)]">{book.author}</p>
+          {book.note && <p className="mt-4 max-w-2xl text-[17px] leading-[1.75] text-[var(--muted)]">{book.note}</p>}
+        </div>
+        <div className="mt-6 flex shrink-0 flex-col items-start gap-3 sm:mt-0 sm:items-end">
+          {book.reflectionCount > 0 && <p className="text-sm text-[var(--leaf)]">{book.reflectionCount} {book.reflectionCount === 1 ? "reflection" : "reflections"}</p>}
+          <span className="text-base font-medium text-[var(--leaf)]">Explore this book <span aria-hidden="true">→</span></span>
+        </div>
       </div>
     </Link>
   );
