@@ -53,6 +53,7 @@ const originalNextBooks = [
 const normalizeBookTitle = (title: string) => title
   .toLowerCase()
   .replace(/aren't/g, "are not")
+  .replace(/\\b5\\b/g, "five")
   .normalize("NFKD")
   .replace(/[\\u0300-\\u036f]/g, "")
   .replace(/[^a-z0-9]/g, "");
