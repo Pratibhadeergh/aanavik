@@ -169,46 +169,33 @@ export default async function ThinkingShelfPage() {
       )}
 
       {(completed.length > 0 || originalCompletedBooks.length > 0) && (
-        <section className="mt-20 border-t border-[var(--line)] pt-9">
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            
-                    <div>
-        <p className="editorial-eyebrow">The reading log</p>
-        <h2 className="mt-3 font-serif text-3xl text-[var(--soil)] sm:text-4xl">
-          Books read, questions gathered.
-        </h2>
-        <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--muted)]">
-          A record of my latest reading sprint — the books I've finished, and the connections and questions that have stayed with me. Not a ranking, or a record of everything I've ever read.
-        </p>
-      </div>
-          </div>
-          <div className="mt-8 divide-y divide-[var(--line)] border-y border-[var(--line)]">
-            {[...completed, ...originalCompletedBooks.filter((oldBook) => !completed.some((book) => book.title.toLowerCase() === oldBook.title.toLowerCase()))].map((book, index) => (
-              <article key={"_id" in book ? book._id : book.title} className="grid gap-3 py-5 md:grid-cols-[3rem_4rem_1fr_1fr] md:items-center md:gap-6">
-                <p className="text-sm tabular-nums text-[var(--muted)]">{String(index + 1).padStart(2, "0")}</p>
-                <div className="w-14">
+        <section className="mt-20 border-t border-[var(--line)] pt-10">
+          <p className="editorial-eyebrow">The books in this reading streak</p>
+          <h2 className="mt-3 font-serif text-3xl leading-snug text-[var(--soil)] sm:text-4xl">The Thinking Shelf</h2>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--muted)]">
+            A growing record of the books I've finished along this stretch of reading. Each one leaves something behind: an idea, a question, or a connection to follow.
+          </p>
+          <div className="mt-10 overflow-hidden border-b-[12px] border-[#8a6b48] bg-gradient-to-b from-[#f1eee5] to-[#e7e0d2] px-5 pb-0 pt-7 shadow-[0_12px_18px_-14px_rgba(40,30,20,0.55)] sm:px-8">
+            <div className="flex min-h-52 items-end justify-start gap-2 overflow-x-auto pb-0">
+              {[...completed, ...originalCompletedBooks.filter((oldBook) => !completed.some((book) => book.title.toLowerCase() === oldBook.title.toLowerCase()))].map((book, index) => (
+                <div key={"_id" in book ? book._id : book.title} className="group flex w-24 shrink-0 flex-col items-center justify-end sm:w-28">
                   {"cover" in book && book.cover ? (
-                    <img
-                      src={urlFor(book.cover).width(160).height(220).fit("max").url()}
-                      alt={`Cover of ${book.title}`}
-                      className="w-full shadow-sm"
-                    />
-                  ) : null}
+                    <Link href={"slug" in book && book.slug ? `/thinking-shelf/books/${book.slug}` : "#"} aria-label={`Explore ${book.title}`} className="block w-full transition-transform duration-200 hover:-translate-y-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--leaf)]">
+                      <img src={urlFor(book.cover).width(240).height(340).fit("max").url()} alt={`Cover of ${book.title}`} className="h-44 w-full object-cover object-top shadow-md sm:h-48" />
+                    </Link>
+                  ) : (
+                    <div className="flex h-44 w-full items-center justify-center border-x border-white/20 px-2 text-center shadow-md transition-transform duration-200 group-hover:-translate-y-2 sm:h-48" style={{backgroundColor:["#53634a","#8b6b4f","#b5a27c","#65776c","#8a7768"][index%5]}}>
+                      <span className="font-serif text-sm leading-snug text-white">{book.title}</span>
+                    </div>
+                  )}
+                  <p className="mt-2 line-clamp-2 w-full text-center text-xs leading-4 text-[var(--soil)]">{book.title}</p>
+                  <p className="mb-3 mt-1 line-clamp-1 w-full text-center text-[11px] text-[var(--muted)]">{book.author}</p>
                 </div>
-                <div>
-                  <h3 className="font-serif text-xl text-[var(--soil)]">
-                    {"slug" in book && book.slug
-                      ? <Link href={`/thinking-shelf/books/${book.slug}`} className="hover:text-[var(--leaf)]">{book.title}</Link>
-                      : book.title}
-                  </h3>
-                  {book.author && <p className="mt-1 text-sm text-[var(--muted)]">{book.author}</p>}
-                </div>
-                <p className="text-sm leading-relaxed text-[var(--muted)]">{"theme" in book ? book.theme : book.note}</p>
-              </article>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
-     )}
+      )}
 
       <section className="mt-20 border-t border-[var(--line)] pt-9">
         <div className="flex flex-wrap items-end justify-between gap-4">
