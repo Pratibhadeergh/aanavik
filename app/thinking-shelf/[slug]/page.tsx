@@ -18,8 +18,8 @@ type EntryData = {
 
 const components: PortableTextComponents = {
   block: {
-    h2: ({children}) => <h2 className="mt-14 font-serif text-3xl leading-tight text-[var(--soil)]">{children}</h2>,
-    h3: ({children}) => <h3 className="mt-10 font-serif text-2xl text-[var(--soil)]">{children}</h3>,
+    h2: ({children}) => <h2 className="mt-12 font-serif text-2xl leading-tight text-[var(--soil)] sm:text-3xl">{children}</h2>,
+    h3: ({children}) => <h3 className="mt-9 font-serif text-xl text-[var(--soil)] sm:text-2xl">{children}</h3>,
     normal: ({children}) => <p className="mt-7 text-[17px] leading-[1.8] text-[var(--foreground)] sm:text-[18px]">{children}</p>,
     blockquote: ({children}) => <blockquote className="my-10 border-l-2 border-[var(--leaf)] pl-6 font-serif text-2xl leading-relaxed text-[var(--soil)]">{children}</blockquote>,
   },
@@ -54,7 +54,7 @@ export default async function ThinkingEntryPage({params}: {params: Promise<{slug
       <Link href="/thinking-shelf" className="text-sm text-[var(--muted)] hover:text-[var(--soil)]">← The Thinking Shelf</Link>
       <header className="mt-12 border-b border-[var(--line)] pb-10">
         <p className="editorial-eyebrow">A reading reflection</p>
-        <h1 className="mt-6 font-serif text-4xl leading-[1.12] tracking-tight text-[var(--soil)] sm:text-5xl lg:text-6xl">{entry.title}</h1>
+        <h1 className="mt-6 max-w-3xl font-serif text-3xl leading-[1.16] tracking-tight text-[var(--soil)] sm:text-4xl">{entry.title}</h1>
         <p className="mt-6 max-w-3xl font-serif text-xl leading-relaxed text-[var(--muted)]">{entry.excerpt}</p>
         <div className="mt-7 flex flex-wrap gap-x-4 gap-y-2 text-xs text-[var(--muted)]">
           <time dateTime={entry.publishedAt}>{new Date(entry.publishedAt).toLocaleDateString("en", {year: "numeric", month: "long", day: "numeric"})}</time>
