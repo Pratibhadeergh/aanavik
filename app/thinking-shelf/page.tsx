@@ -87,7 +87,7 @@ export default async function ThinkingShelfPage() {
           className="h-auto w-full"
           sizes="(max-width: 768px) 100vw, 1200px"
         />
-      </section>hny
+      </section>
 
       <section className="mt-20 border-t border-[var(--line)] pt-10">
         <p className="editorial-eyebrow">The beginning</p>
