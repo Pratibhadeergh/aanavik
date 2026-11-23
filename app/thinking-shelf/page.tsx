@@ -50,6 +50,13 @@ const originalNextBooks = [
   {title: "The Mountain Is You", author: "Brianna Wiest", note: "Waiting on the shelf"},
 ];
 
+const normalizeBookTitle = (title: string) => title
+  .toLowerCase()
+  .replace(/aren't/g, "are not")
+  .normalize("NFKD")
+  .replace(/[\\u0300-\\u036f]/g, "")
+  .replace(/[^a-z0-9]/g, "");
+
 const statusLabels: Record<string, string> = {
   "to-read": "On the reading list", reading: "Currently reading", completed: "Completed", paused: "Paused",
 };
@@ -167,7 +174,7 @@ export default async function ThinkingShelfPage() {
           </p>
           <div className="mt-10 overflow-hidden border-b-[12px] border-[#8a6b48] bg-gradient-to-b from-[#f1eee5] to-[#e7e0d2] px-5 pb-0 pt-7 shadow-[0_12px_18px_-14px_rgba(40,30,20,0.55)] sm:px-8">
             <div className="flex min-h-52 items-end justify-start gap-2 overflow-x-auto pb-0">
-              {[...completed, ...originalCompletedBooks.filter((oldBook) => !completed.some((book) => book.title.toLowerCase() === oldBook.title.toLowerCase()))].map((book, index) => (
+              {[...completed, ...originalCompletedBooks.filter((oldBook) => !completed.some((book) => normalizeBookTitle(book.title) === normalizeBookTitle(oldBook.title)))].map((book, index) => (
                 <div key={"_id" in book ? book._id : book.title} className="group flex w-24 shrink-0 flex-col items-center justify-end sm:w-28">
                   {"cover" in book && book.cover ? (
                     <Link href={"slug" in book && book.slug ? `/thinking-shelf/books/${book.slug}` : "#"} aria-label={`Explore ${book.title}`} className="block w-full transition-transform duration-200 hover:-translate-y-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--leaf)]">
