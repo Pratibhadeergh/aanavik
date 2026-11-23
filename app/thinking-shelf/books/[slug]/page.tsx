@@ -33,7 +33,7 @@ export default async function ThinkingBookPage({params}: {params: Promise<{slug:
           <p className="mt-4 font-serif text-xl text-[var(--muted)]">{book.author}</p>
           <p className="mt-5 text-xs uppercase tracking-[0.14em] text-[var(--leaf)]">{book.status.replace("-", " ")}</p>
           {book.theme && <p className="mt-7 max-w-2xl text-sm uppercase tracking-[0.12em] text-[var(--leaf)]">{book.theme}</p>}
-          {book.note && <p className="mt-4 max-w-2xl text-base leading-8 text-[var(--muted)]">{book.note}</p>}
+          {book.note && <p className="mt-4 max-w-2xl text-[17px] leading-[1.8] text-[var(--muted)] sm:text-[18px]">{book.note}</p>}
           <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[var(--muted)]">
             {book.startedOn && <span>Started {new Date(book.startedOn).toLocaleDateString("en", {month: "short", year: "numeric"})}</span>}
             {book.finishedOn && <span>Finished {new Date(book.finishedOn).toLocaleDateString("en", {month: "short", year: "numeric"})}</span>}
