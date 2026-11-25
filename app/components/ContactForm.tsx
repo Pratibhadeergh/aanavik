@@ -88,7 +88,7 @@ export default function ContactForm() {
 
       {status === "success" && (
         <p role="status" className="text-sm leading-6 text-[var(--soil)]">
-          Thank you for writing. Your message has been sent.
+          Thank you for getting in touch. Your message has been received. If a response is appropriate, we’ll be in touch.
         </p>
       )}
       {status === "error" && (
