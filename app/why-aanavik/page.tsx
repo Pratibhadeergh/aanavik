@@ -3,15 +3,15 @@ import MyceliumBackground from "../components/MyceliumBackground";
 export default function WhyAanavikPage() {
   return (
     <PageContainer>
-      <h1 className="text-5xl font-bold mb-4">
-        Why Aanavik
-      </h1>
+     <h1 className="mb-4 font-serif text-5xl leading-[1.08] tracking-tight text-[var(--soil)] sm:text-6xl lg:text-7xl">
+  Why Aanavik
+</h1>
 
-      <p className="text-xl text-gray-600 italic mb-16">
-        Aanavik means molecular in Sanskrit.
-      </p>
+      <p className="mt-7 mb-16 max-w-2xl font-serif text-2xl leading-relaxed text-[var(--foreground)] sm:text-3xl">
+  Aanavik means molecular in Sanskrit.
+</p>
 
-      <section className="space-y-6">
+      <section className="max-w-4xl space-y-7 text-base leading-8 text-[var(--foreground)]">
         <p className="text-xs uppercase tracking-[0.2em] text-[var(--aanavik-accent)]">
   01 / Relationships
 </p>
@@ -50,7 +50,7 @@ export default function WhyAanavikPage() {
     until something breaks.
         </p>
       </section>
-      <section className="mt-20 space-y-6">
+     <section className="mt-20 max-w-4xl space-y-7 text-base leading-8 text-[var(--foreground)]">
         <p className="text-xs uppercase tracking-[0.2em] text-[var(--aanavik-accent)]">
   02 / Timing
 </p>
@@ -73,7 +73,7 @@ export default function WhyAanavikPage() {
     The signal existed. The response came too late.
   </p>
 </section>
-<section className="mt-20 space-y-6">
+<section className="mt-20 max-w-4xl space-y-7 text-base leading-8 text-[var(--foreground)]">
     <p className="text-xs uppercase tracking-[0.2em] text-[var(--aanavik-accent)]">
   03 / Response
 </p>

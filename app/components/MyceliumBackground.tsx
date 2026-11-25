@@ -62,7 +62,6 @@ export default function MyceliumBackground() {
 
             <path d="M1245 65 C1260 40 1280 25 1305 20" />
             <path d="M1300 130 C1330 115 1350 100 1360 75" />
-            y
             
           </g>
         </g>
