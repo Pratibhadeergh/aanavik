@@ -10,6 +10,7 @@ const links = [
   { href: "/thinking-shelf", label: "Thinking Shelf" },
   { href: "/research", label: "Research" },
   { href: "/garden", label: "Garden" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navigation() {
