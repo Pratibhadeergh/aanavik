@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./globals.css";
 import Navigation from "./components/Navigation";
 export const metadata: Metadata = {
@@ -42,6 +43,12 @@ export default function RootLayout({
               Aanavik <span className="text-[var(--leaf)]">·</span> Molecules &amp; Meaning
             </p>
             <p>Different systems. Similar questions.</p>
+            <Link
+              href="/contact"
+              className="w-fit text-xs font-medium uppercase tracking-[0.16em] text-[var(--soil)] transition-colors hover:text-[var(--leaf)]"
+            >
+              Contact <span aria-hidden="true">↗</span>
+            </Link>
           </div>
         </footer>
       </body>
