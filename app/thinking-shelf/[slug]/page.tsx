@@ -6,7 +6,7 @@ import {urlFor} from "@/sanity/lib/image";
 
 const ENTRY_QUERY = `*[_type == "thinkingEntry" && slug.current == $slug && defined(publishedAt)][0] {
   title, excerpt, publishedAt, body, coverImage, tags,
-  "relatedBooks": select(count(books) > 0 => books[]->{title, "slug": slug.current, author}, defined(book) => [book->{title, "slug": slug.current, author}], [])
+  "relatedBooks": (select(defined(book) => [book->{title, "slug": slug.current, author}], []) + (books[]->{title, "slug": slug.current, author}))
 }`;
 
 type EntryData = {
