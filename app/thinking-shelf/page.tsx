@@ -20,7 +20,7 @@ const BOOKS_QUERY = `*[_type == "thinkingBook"] | order(
 
 const ENTRIES_QUERY = `*[_type == "thinkingEntry" && defined(publishedAt)] | order(publishedAt desc)[0...8] {
   _id, title, excerpt, publishedAt, "slug": slug.current,
-  "bookTitle": book->title, "bookSlug": book->slug.current
+  "relatedBooks": (select(defined(book) => [book->{title, "slug": slug.current}], []) + (books[]->{title, "slug": slug.current}))
 }`;
 
 type Book = {
@@ -29,7 +29,7 @@ type Book = {
 };
 type Entry = {
   _id: string; title: string; excerpt: string; publishedAt: string; slug: string;
-  bookTitle?: string; bookSlug?: string;
+  relatedBooks?: {title: string; slug: string}[];
 };
 
 const originalCompletedBooks = [
@@ -218,7 +218,7 @@ export default async function ThinkingShelfPage() {
             {entries.map((entry) => (
               <article key={entry._id} className="py-7">
                 <p className="editorial-eyebrow">
-                  {entry.bookTitle ? <Link href={`/thinking-shelf/books/${entry.bookSlug}`} className="hover:text-[var(--soil)]">{entry.bookTitle}</Link> : "Reading reflection"}
+                  {entry.relatedBooks?.length ? entry.relatedBooks.map((book, index) => <span key={book.slug}>{index > 0 ? " · " : ""}<Link href={`/thinking-shelf/books/${book.slug}`} className="hover:text-[var(--soil)]">{book.title}</Link></span>) : "Reading reflection"}
                   {entry.publishedAt ? ` · ${new Date(entry.publishedAt).toLocaleDateString("en", {year: "numeric", month: "short", day: "numeric"})}` : ""}
                 </p>
                 <h3 className="mt-3 font-serif text-2xl leading-snug text-[var(--soil)] sm:text-3xl">

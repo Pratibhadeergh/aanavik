@@ -7,7 +7,20 @@ export const thinkingEntry = defineType({
   fields: [
     defineField({name: 'title', title: 'Article title', type: 'string', validation: (Rule) => Rule.required()}),
     defineField({name: 'slug', title: 'Slug', type: 'slug', options: {source: 'title', maxLength: 96}, validation: (Rule) => Rule.required()}),
-    defineField({name: 'book', title: 'Related book (optional)', type: 'reference', to: [{type: 'thinkingBook'}], description: 'Link this reflection to a book, or leave it empty for a standalone Thinking Shelf article.'}),
+    defineField({
+      name: 'books',
+      title: 'Additional related books (optional)',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'thinkingBook'}]}],
+      description: 'Add any other books that informed this reflection.'
+    }),
+    defineField({
+      name: 'book',
+      title: 'Primary book (optional)',
+      type: 'reference',
+      to: [{type: 'thinkingBook'}],
+      description: 'The main book this reflection responds to. Leave empty for a standalone article.',
+    }),
     defineField({name: 'excerpt', title: 'Short introduction', type: 'text', rows: 3, validation: (Rule) => Rule.required()}),
     defineField({name: 'publishedAt', title: 'Publication date', type: 'datetime'}),
     defineField({
@@ -36,9 +49,11 @@ export const thinkingEntry = defineType({
   ],
   orderings: [{title: 'Newest first', name: 'publishedDesc', by: [{field: 'publishedAt', direction: 'desc'}]}],
   preview: {
-    select: {title: 'title', book: 'book.title', date: 'publishedAt'},
-    prepare({title, book, date}) {
-      return {title, subtitle: [book, date ? new Date(date).toLocaleDateString() : 'Draft'].filter(Boolean).join(' · ')}
+    select: {title: 'title', books: 'books[]->title', primaryBook: 'book->title', date: 'publishedAt'},
+    prepare({title, books, primaryBook, date}) {
+      const bookTitles = [primaryBook, ...(books ?? [])].filter(Boolean)
+      const related = bookTitles.join(', ')
+      return {title, subtitle: [related, date ? new Date(date).toLocaleDateString() : 'Draft'].filter(Boolean).join(' · ')}
     },
   },
 })

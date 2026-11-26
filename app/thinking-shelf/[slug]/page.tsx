@@ -6,14 +6,12 @@ import {urlFor} from "@/sanity/lib/image";
 
 const ENTRY_QUERY = `*[_type == "thinkingEntry" && slug.current == $slug && defined(publishedAt)][0] {
   title, excerpt, publishedAt, body, coverImage, tags,
-  "bookTitle": book->title,
-  "bookSlug": book->slug.current,
-  "author": book->author
+  "relatedBooks": (select(defined(book) => [book->{title, "slug": slug.current, author}], []) + (books[]->{title, "slug": slug.current, author}))
 }`;
 
 type EntryData = {
   title: string; excerpt: string; publishedAt: string; body: any[];
-  coverImage?: any; tags?: string[]; bookTitle?: string; bookSlug?: string; author?: string;
+  coverImage?: any; tags?: string[]; relatedBooks?: {title: string; slug: string; author?: string}[];
 };
 
 const components: PortableTextComponents = {
@@ -58,7 +56,7 @@ export default async function ThinkingEntryPage({params}: {params: Promise<{slug
         <p className="mt-6 max-w-3xl font-serif text-xl leading-relaxed text-[var(--muted)]">{entry.excerpt}</p>
         <div className="mt-7 flex flex-wrap gap-x-4 gap-y-2 text-xs text-[var(--muted)]">
           <time dateTime={entry.publishedAt}>{new Date(entry.publishedAt).toLocaleDateString("en", {year: "numeric", month: "long", day: "numeric"})}</time>
-          {entry.bookTitle && entry.bookSlug && <Link href={`/thinking-shelf/books/${entry.bookSlug}`} className="text-[var(--leaf)] hover:text-[var(--soil)]">From {entry.bookTitle}{entry.author ? ` · ${entry.author}` : ""}</Link>}
+          {entry.relatedBooks?.map((book, index) => <Link key={book.slug} href={`/thinking-shelf/books/${book.slug}`} className="text-[var(--leaf)] hover:text-[var(--soil)]">{index === 0 ? "From " : "Also: "}{book.title}{book.author ? ` · ${book.author}` : ""}</Link>)}
         </div>
       </header>
       {entry.coverImage && <img src={urlFor(entry.coverImage).width(1400).auto("format").url()} alt="" className="mt-10 h-auto w-full" />}
@@ -66,7 +64,7 @@ export default async function ThinkingEntryPage({params}: {params: Promise<{slug
         <PortableText value={entry.body} components={components} />
       </div>
       {entry.tags && entry.tags.length > 0 && <div className="mx-auto mt-14 flex max-w-3xl flex-wrap gap-2 border-t border-[var(--line)] pt-7">{entry.tags.map((tag) => <span key={tag} className="border border-[var(--line)] px-3 py-1 text-xs text-[var(--muted)]">{tag}</span>)}</div>}
-      {entry.bookTitle && entry.bookSlug && <footer className="mx-auto mt-16 max-w-3xl border-t border-[var(--line)] pt-7 text-sm text-[var(--muted)]">From the Thinking Shelf: <Link href={`/thinking-shelf/books/${entry.bookSlug}`} className="text-[var(--soil)] hover:text-[var(--leaf)]">{entry.bookTitle}</Link></footer>}
+      {entry.relatedBooks && entry.relatedBooks.length > 0 && <footer className="mx-auto mt-16 max-w-3xl border-t border-[var(--line)] pt-7 text-sm text-[var(--muted)]">Connected books: <span className="inline-flex flex-wrap gap-x-2">{entry.relatedBooks.map((book) => <Link key={book.slug} href={`/thinking-shelf/books/${book.slug}`} className="text-[var(--soil)] hover:text-[var(--leaf)]">{book.title}</Link>)}</span></footer>}
     </article>
   );
 }
