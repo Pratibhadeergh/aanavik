@@ -9,18 +9,17 @@ export const thinkingEntry = defineType({
     defineField({name: 'slug', title: 'Slug', type: 'slug', options: {source: 'title', maxLength: 96}, validation: (Rule) => Rule.required()}),
     defineField({
       name: 'books',
-      title: 'Related books (optional)',
+      title: 'Additional related books (optional)',
       type: 'array',
       of: [{type: 'reference', to: [{type: 'thinkingBook'}]}],
-      description: 'Link this reflection to one or more books, or leave it empty for a standalone Thinking Shelf article.',
+      description: 'Add any other books that informed this reflection.'
     }),
     defineField({
       name: 'book',
-      title: 'Legacy book reference',
+      title: 'Primary book (optional)',
       type: 'reference',
       to: [{type: 'thinkingBook'}],
-      hidden: true,
-      description: 'Retained for compatibility with reflections created before multi-book linking.',
+      description: 'The main book this reflection responds to. Leave empty for a standalone article.',
     }),
     defineField({name: 'excerpt', title: 'Short introduction', type: 'text', rows: 3, validation: (Rule) => Rule.required()}),
     defineField({name: 'publishedAt', title: 'Publication date', type: 'datetime'}),
@@ -50,10 +49,10 @@ export const thinkingEntry = defineType({
   ],
   orderings: [{title: 'Newest first', name: 'publishedDesc', by: [{field: 'publishedAt', direction: 'desc'}]}],
   preview: {
-    select: {title: 'title', books: 'books', legacyBook: 'book.title', date: 'publishedAt'},
-    prepare({title, books, legacyBook, date}) {
-      const bookTitles = books?.map((book) => book.title).filter(Boolean) ?? []
-      const related = bookTitles.length ? bookTitles.join(', ') : legacyBook
+    select: {title: 'title', books: 'books[]->title', primaryBook: 'book->title', date: 'publishedAt'},
+    prepare({title, books, primaryBook, date}) {
+      const bookTitles = [primaryBook, ...(books ?? [])].filter(Boolean)
+      const related = bookTitles.join(', ')
       return {title, subtitle: [related, date ? new Date(date).toLocaleDateString() : 'Draft'].filter(Boolean).join(' · ')}
     },
   },
