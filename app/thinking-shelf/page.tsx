@@ -20,7 +20,7 @@ const BOOKS_QUERY = `*[_type == "thinkingBook"] | order(
 
 const ENTRIES_QUERY = `*[_type == "thinkingEntry" && defined(publishedAt)] | order(publishedAt desc)[0...8] {
   _id, title, excerpt, publishedAt, "slug": slug.current,
-  "relatedBooks": select(count(books) > 0 => books[]->{title, "slug": slug.current}, defined(book) => [book->{title, "slug": slug.current}], [])
+  "relatedBooks": (select(defined(book) => [book->{title, "slug": slug.current}], []) + (books[]->{title, "slug": slug.current}))
 }`;
 
 type Book = {
