@@ -7,7 +7,21 @@ export const thinkingEntry = defineType({
   fields: [
     defineField({name: 'title', title: 'Article title', type: 'string', validation: (Rule) => Rule.required()}),
     defineField({name: 'slug', title: 'Slug', type: 'slug', options: {source: 'title', maxLength: 96}, validation: (Rule) => Rule.required()}),
-    defineField({name: 'book', title: 'Related book (optional)', type: 'reference', to: [{type: 'thinkingBook'}], description: 'Link this reflection to a book, or leave it empty for a standalone Thinking Shelf article.'}),
+    defineField({
+      name: 'books',
+      title: 'Related books (optional)',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'thinkingBook'}]}],
+      description: 'Link this reflection to one or more books, or leave it empty for a standalone Thinking Shelf article.',
+    }),
+    defineField({
+      name: 'book',
+      title: 'Legacy book reference',
+      type: 'reference',
+      to: [{type: 'thinkingBook'}],
+      hidden: true,
+      description: 'Retained for compatibility with reflections created before multi-book linking.',
+    }),
     defineField({name: 'excerpt', title: 'Short introduction', type: 'text', rows: 3, validation: (Rule) => Rule.required()}),
     defineField({name: 'publishedAt', title: 'Publication date', type: 'datetime'}),
     defineField({
@@ -36,9 +50,11 @@ export const thinkingEntry = defineType({
   ],
   orderings: [{title: 'Newest first', name: 'publishedDesc', by: [{field: 'publishedAt', direction: 'desc'}]}],
   preview: {
-    select: {title: 'title', book: 'book.title', date: 'publishedAt'},
-    prepare({title, book, date}) {
-      return {title, subtitle: [book, date ? new Date(date).toLocaleDateString() : 'Draft'].filter(Boolean).join(' · ')}
+    select: {title: 'title', books: 'books', legacyBook: 'book.title', date: 'publishedAt'},
+    prepare({title, books, legacyBook, date}) {
+      const bookTitles = books?.map((book) => book.title).filter(Boolean) ?? []
+      const related = bookTitles.length ? bookTitles.join(', ') : legacyBook
+      return {title, subtitle: [related, date ? new Date(date).toLocaleDateString() : 'Draft'].filter(Boolean).join(' · ')}
     },
   },
 })
